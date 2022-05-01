@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.0"
     application
-    id("org.jetbrains.dokka") version "1.6.10"           // Plugin for Dokka
+    id("org.jetbrains.dokka") version "1.6.10" // Plugin for Dokka
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1" // Plugin for Ktlint
 }
 
