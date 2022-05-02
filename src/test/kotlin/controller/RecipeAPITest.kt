@@ -24,8 +24,8 @@ class RecipeAPITest {
     private var carbonara: Recipe? = null
     private var chickenCasserole: Recipe? = null
 
-    private var populatedRecipes: RecipeAPI? = RecipeAPI(XMLSerializer(File("notes.xml")))
-    private var emptyRecipes: RecipeAPI? = RecipeAPI(XMLSerializer(File("notes.xml")))
+    private var populatedRecipes: RecipeAPI? = RecipeAPI(XMLSerializer(File("recipes.xml")))
+    private var emptyRecipes: RecipeAPI? = RecipeAPI(XMLSerializer(File("recipes.xml")))
 
     @BeforeEach
     fun setup() {
@@ -319,5 +319,35 @@ class RecipeAPITest {
             assertTrue(populatedRecipes!!.findRecipeByName("chicken").contains(chickenCasserole!!.recipeName))
             assertTrue(populatedRecipes!!.findRecipeByName("chicken").contains(chickenCasserole!!.instructions))
         }
+    }
+
+    @Nested
+    inner class Persistence {
+
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
+            val recipesStore = RecipeAPI(XMLSerializer(File("recipeStoreTest.xml")))
+            recipesStore.store()
+            val recipesLoad = RecipeAPI(XMLSerializer(File("recipeStoreTest.xml")))
+            recipesLoad.load()
+            assertEquals(recipesStore.numberOfRecipes(), recipesLoad.numberOfRecipes())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in XML doesn't loose data`() {
+            val recipesStore = RecipeAPI(XMLSerializer(File("src/test/recipeStoreTest.xml")))
+            recipesStore.add(waffles!!)
+            recipesStore.add(chickenCasserole!!)
+            recipesStore.store()
+
+            // Load into a different collection
+            val recipesLoad = RecipeAPI(XMLSerializer(File("src/test/recipeStoreTest.xml")))
+            recipesLoad.load()
+            assertEquals(recipesStore.numberOfRecipes(), recipesLoad.numberOfRecipes())
+            assertEquals(recipesStore.findRecipe(0),recipesLoad.findRecipe(0))
+            assertEquals(recipesStore.findRecipe(1),recipesLoad.findRecipe(1))
+        }
+
+
     }
 }
