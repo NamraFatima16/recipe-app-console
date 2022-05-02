@@ -21,9 +21,38 @@ class IngredientAPI {
         }
     }
 
+    fun findIngredient(index: Int): Ingredient? {
+        return if (isValidListIndex(index, ingredients)) {
+            ingredients[index]
+        } else {
+            null
+        }
+    }
+
     fun numberOfIngredients(): Int {
         return ingredients.size
     }
 
-    // TODO add other CRUD methods
+    fun delete(index: Int): Ingredient? {
+        return if (isValidListIndex(index, ingredients)) {
+            ingredients.removeAt(index)
+        } else {
+            null
+        }
+    }
+
+    fun update(indexToUpdate: Int, ingredient: Ingredient?): Boolean {
+        val ingredientToUpdate = findIngredient(indexToUpdate)
+
+        if ((ingredientToUpdate != null) && (ingredient != null)) {
+            ingredientToUpdate.ingredientName = ingredient.ingredientName
+            ingredientToUpdate.ingredientQuantity = ingredient.ingredientQuantity
+            return true
+        }
+        return false
+    }
+
+    private fun isValidListIndex(index: Int, list: List<Any>): Boolean {
+        return (index >= 0 && index < list.size)
+    }
 }
