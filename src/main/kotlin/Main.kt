@@ -1,8 +1,8 @@
-import controllers.RecipeApi
+import controllers.RecipeAPI
 import utils.ScannerInput.readNextInt
 import kotlin.system.exitProcess
 
-private val recipeApi = RecipeApi()
+private val recipeApi = RecipeAPI()
 
 fun main() {
     runMenu()

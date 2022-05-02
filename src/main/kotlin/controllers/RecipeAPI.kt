@@ -2,7 +2,7 @@ package controllers
 
 import models.Recipe
 
-class RecipeApi {
+class RecipeAPI {
     private var recipes = ArrayList<Recipe>()
 
     fun add(recipe: Recipe): Boolean {
@@ -22,11 +22,11 @@ class RecipeApi {
     }
 
     fun listRecipesByMealType(mealType: String): String {
-        val count = recipes.count { recipe: Recipe -> recipe.mealType == mealType }
+        val count = recipes.count { recipe: Recipe -> mealType.contains(recipe.mealType, true) }
         return if (count == 0) {
             "No recipes for meal type '$mealType'"
         } else {
-            val matches = recipes.filter { recipe: Recipe -> recipe.mealType == mealType }
+            val matches = recipes.filter { recipe: Recipe -> mealType.contains(recipe.mealType, true) }
             matches.joinToString(separator = "\n") { recipe: Recipe ->
                 "${recipes.indexOf(recipe)}: $recipe"
             }
@@ -34,11 +34,11 @@ class RecipeApi {
     }
 
     fun listRecipesByDiet(diet: String): String {
-        val count = recipes.count { recipe: Recipe -> recipe.diet == diet }
+        val count = recipes.count { recipe: Recipe -> diet.contains(recipe.diet, true) }
         return if (count == 0) {
             "No recipes for diet type '$diet'"
         } else {
-            val matches = recipes.filter { recipe: Recipe -> recipe.diet == diet }
+            val matches = recipes.filter { recipe: Recipe -> diet.contains(recipe.diet, true) }
             matches.joinToString(separator = "\n") { recipe: Recipe ->
                 "${recipes.indexOf(recipe)}: $recipe"
             }
