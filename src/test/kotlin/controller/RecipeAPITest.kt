@@ -290,7 +290,6 @@ class RecipeAPITest {
             assertEquals(newDiet.diet, populatedRecipes!!.findRecipe(0)!!.diet)
             assertTrue(populatedRecipes!!.update(0, newIngredients))
             assertEquals(newIngredients.ingredients, populatedRecipes!!.findRecipe(0)!!.ingredients)
-
         }
     }
 
