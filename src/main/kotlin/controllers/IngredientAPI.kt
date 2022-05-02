@@ -47,7 +47,6 @@ class IngredientAPI {
         if ((ingredientToUpdate != null) && (ingredient != null)) {
             ingredientToUpdate.ingredientName = ingredient.ingredientName
             ingredientToUpdate.ingredientQuantity = ingredient.ingredientQuantity
-            ingredientToUpdate.measureUnit = ingredient.measureUnit
             return true
         }
         return false
