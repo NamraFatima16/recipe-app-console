@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.XMLSerializer
+import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -22,8 +24,8 @@ class RecipeAPITest {
     private var carbonara: Recipe? = null
     private var chickenCasserole: Recipe? = null
 
-    private var populatedRecipes: RecipeAPI? = RecipeAPI()
-    private var emptyRecipes: RecipeAPI? = RecipeAPI()
+    private var populatedRecipes: RecipeAPI? = RecipeAPI(XMLSerializer(File("notes.xml")))
+    private var emptyRecipes: RecipeAPI? = RecipeAPI(XMLSerializer(File("notes.xml")))
 
     @BeforeEach
     fun setup() {

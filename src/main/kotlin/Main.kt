@@ -1,8 +1,10 @@
 import controllers.RecipeAPI
+import persistence.XMLSerializer
 import utils.ScannerInput.readNextInt
+import java.io.File
 import kotlin.system.exitProcess
 
-private val recipeApi = RecipeAPI()
+private val recipeApi = RecipeAPI(XMLSerializer(File("recipes.xml")))
 
 fun main() {
     runMenu()
