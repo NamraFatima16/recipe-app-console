@@ -306,13 +306,13 @@ class RecipeAPITest {
         }
 
         @Test
-        fun `findIngredient returns ingredient when it does exist`() {
+        fun `findRecipe returns recipe when it does exist`() {
             assertEquals(waffles, populatedRecipes!!.findRecipe(0))
         }
 
         @Test
-        fun `findRecipeByName returns empty string when no recipe with matching name exists`() {
-            assertTrue(populatedRecipes!!.findRecipeByName("pizza").isEmpty())
+        fun `findRecipeByName returns 'No recipes' when no recipe with matching name exists`() {
+            assertTrue(populatedRecipes!!.findRecipeByName("pizza").contains("no recipes", true))
         }
 
         @Test
