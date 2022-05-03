@@ -69,8 +69,12 @@ class RecipeAPI(serializerType: Serializer) {
 
     fun findRecipeByName(name: String): String {
         val matches = recipes.filter { recipe: Recipe -> recipe.recipeName.contains(name, true) }
-        return matches.joinToString(separator = "\n") { recipe: Recipe ->
-            "${recipes.indexOf(recipe)}: $recipe"
+        return if (matches.isEmpty()) {
+            "No recipes found with name matching $name"
+        } else {
+            return matches.joinToString(separator = "\n") { recipe: Recipe ->
+                "${recipes.indexOf(recipe)}: $recipe"
+            }
         }
     }
 
@@ -113,6 +117,9 @@ class RecipeAPI(serializerType: Serializer) {
         serializer.write(recipes)
     }
 
+    fun isValidIndex(index: Int): Boolean {
+        return isValidListIndex(index, recipes)
+    }
     private fun isValidListIndex(index: Int, list: List<Any>): Boolean {
         return (index >= 0 && index < list.size)
     }
