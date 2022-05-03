@@ -70,5 +70,4 @@ class IngredientAPI {
     override fun hashCode(): Int {
         return ingredients.hashCode()
     }
-
 }
