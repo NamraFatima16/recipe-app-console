@@ -3,8 +3,11 @@ import controllers.RecipeAPI
 import models.Ingredient
 import models.Recipe
 import persistence.XMLSerializer
+import utils.ScannerInput.readNextDietType
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import utils.ScannerInput.readNextMealType
+import utils.ScannerInput.readNextPositiveInt
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -60,10 +63,10 @@ fun mainMenu(): Int {
 fun addRecipe() {
     val ingredients = IngredientAPI()
     val recipeName = readNextLine("Enter the name of the recipe: ")
-    val prepTime = readNextInt("Enter the prep time (in mins): ")
-    val cookTime = readNextInt("Enter the cook time (in mins): ")
-    val mealType = readNextLine("Enter the recipe meal type: ")
-    val diet = readNextLine("Enter the diet (vegan, vegetarian or meat): ")
+    val prepTime = readNextPositiveInt("Enter the prep time (in mins): ")
+    val cookTime = readNextPositiveInt("Enter the cook time (in mins): ")
+    val mealType = readNextMealType("Enter the recipe meal type: ")
+    val diet = readNextDietType("Enter the diet (vegan, vegetarian or meat): ")
     val instruction = readNextLine("Enter the instructions: ")
 
     val numIngredients = readNextInt("Enter the number of ingredients in the recipe: ")
@@ -112,10 +115,10 @@ fun updateRecipe() {
         if (recipeApi.isValidIndex(indexToUpdate)) {
             val ingredients = IngredientAPI()
             val recipeName = readNextLine("Enter the name of the recipe: ")
-            val prepTime = readNextInt("Enter the prep time (in mins): ")
-            val cookTime = readNextInt("Enter the cook time (in mins): ")
-            val mealType = readNextLine("Enter the recipe meal type: ")
-            val diet = readNextLine("Enter the diet (vegan, vegetarian or meat): ")
+            val prepTime = readNextPositiveInt("Enter the prep time (in mins): ")
+            val cookTime = readNextPositiveInt("Enter the cook time (in mins): ")
+            val mealType = readNextMealType("Enter the recipe meal type: ")
+            val diet = readNextDietType("Enter the diet (vegan, vegetarian or meat): ")
             val instruction = readNextLine("Enter the instructions: ")
 
             val numIngredients = readNextInt("Enter the number of ingredients in the recipe: ")
