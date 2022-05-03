@@ -55,4 +55,19 @@ class IngredientAPI {
     private fun isValidListIndex(index: Int, list: List<Any>): Boolean {
         return (index >= 0 && index < list.size)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as IngredientAPI
+
+        if (ingredients != other.ingredients) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return ingredients.hashCode()
+    }
 }
