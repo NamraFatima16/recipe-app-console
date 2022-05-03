@@ -70,4 +70,9 @@ class IngredientAPI {
     override fun hashCode(): Int {
         return ingredients.hashCode()
     }
+
+    override fun toString(): String {
+        return "IngredientAPI(ingredients=$ingredients)"
+    }
+
 }
