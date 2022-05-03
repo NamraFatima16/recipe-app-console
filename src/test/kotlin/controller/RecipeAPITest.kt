@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
 import kotlin.test.assertEquals
@@ -326,9 +327,9 @@ class RecipeAPITest {
 
         @Test
         fun `saving and loading an empty collection in XML doesn't crash app`() {
-            val recipesStore = RecipeAPI(XMLSerializer(File("recipeStoreTest.xml")))
+            val recipesStore = RecipeAPI(XMLSerializer(File("src/test/recipeStoreTest.xml")))
             recipesStore.store()
-            val recipesLoad = RecipeAPI(XMLSerializer(File("recipeStoreTest.xml")))
+            val recipesLoad = RecipeAPI(XMLSerializer(File("src/test/recipeStoreTest.xml")))
             recipesLoad.load()
             assertEquals(recipesStore.numberOfRecipes(), recipesLoad.numberOfRecipes())
         }
@@ -344,10 +345,32 @@ class RecipeAPITest {
             val recipesLoad = RecipeAPI(XMLSerializer(File("src/test/recipeStoreTest.xml")))
             recipesLoad.load()
             assertEquals(recipesStore.numberOfRecipes(), recipesLoad.numberOfRecipes())
-            assertEquals(recipesStore.findRecipe(0),recipesLoad.findRecipe(0))
-            assertEquals(recipesStore.findRecipe(1),recipesLoad.findRecipe(1))
+            assertEquals(recipesStore.findRecipe(0), recipesLoad.findRecipe(0))
+            assertEquals(recipesStore.findRecipe(1), recipesLoad.findRecipe(1))
         }
 
+        @Test
+        fun `saving and loading an empty collection in JSON doesn't crash app`() {
+            val recipesStore = RecipeAPI(JSONSerializer(File("src/test/recipeStoreTest.json")))
+            recipesStore.store()
+            val recipesLoad = RecipeAPI(JSONSerializer(File("src/test/recipeStoreTest.json")))
+            recipesLoad.load()
+            assertEquals(recipesStore.numberOfRecipes(), recipesLoad.numberOfRecipes())
+        }
 
+        @Test
+        fun `saving and loading an loaded collection in JSON doesn't loose data`() {
+            val recipesStore = RecipeAPI(JSONSerializer(File("src/test/recipeStoreTest.json")))
+            recipesStore.add(waffles!!)
+            recipesStore.add(chickenCasserole!!)
+            recipesStore.store()
+
+            // Load into a different collection
+            val recipesLoad = RecipeAPI(JSONSerializer(File("src/test/recipeStoreTest.json")))
+            recipesLoad.load()
+            assertEquals(recipesStore.numberOfRecipes(), recipesLoad.numberOfRecipes())
+            assertEquals(recipesStore.findRecipe(0), recipesLoad.findRecipe(0))
+            assertEquals(recipesStore.findRecipe(1), recipesLoad.findRecipe(1))
+        }
     }
 }
