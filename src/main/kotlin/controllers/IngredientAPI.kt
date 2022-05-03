@@ -74,5 +74,4 @@ class IngredientAPI {
     override fun toString(): String {
         return "IngredientAPI(ingredients=$ingredients)"
     }
-
 }
