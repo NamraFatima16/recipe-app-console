@@ -176,19 +176,19 @@ fun listAllRecipes() {
 }
 
 fun listRecipesUnderTime() {
-    val time = readNextInt("Enter total time in mins: ")
+    val time = readNextPositiveInt("Enter total time in mins: ")
     println("Following recipes can be made in under $time mins")
     println(recipeApi.listRecipesUnderTime(time))
 }
 
 fun listRecipesByDiet() {
-    val diet = readNextLine("Enter the diet type(s): ")
+    val diet = readNextDietType("Enter the diet type(s): ")
     println("Following recipes were found for diet type $diet")
     println(recipeApi.listRecipesByDiet(diet))
 }
 
 fun listRecipesByMealType() {
-    val meal = readNextLine("Enter the meal type(s): ")
+    val meal = readNextMealType("Enter the meal type(s): ")
     println("Following recipes were found for meal type $meal")
     println(recipeApi.listRecipesByMealType(meal))
 }
