@@ -1,8 +1,10 @@
 package controllers
 
 import models.Recipe
+import persistence.Serializer
 
-class RecipeAPI {
+class RecipeAPI(serializerType: Serializer) {
+    private var serializer: Serializer = serializerType
     private var recipes = ArrayList<Recipe>()
 
     fun add(recipe: Recipe): Boolean {
@@ -98,6 +100,17 @@ class RecipeAPI {
             return true
         }
         return false
+    }
+
+    @Throws(Exception::class)
+    fun load() {
+        @Suppress("UNCHECKED_CAST")
+        recipes = serializer.read() as ArrayList<Recipe>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(recipes)
     }
 
     private fun isValidListIndex(index: Int, list: List<Any>): Boolean {
