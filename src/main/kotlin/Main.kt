@@ -21,16 +21,26 @@ fun runMenu() {
     do {
         when (val option = mainMenu()) {
             1 -> addRecipe()
-            2 -> listAllRecipes()
-            3 -> listRecipesByMealType()
-            4 -> listRecipesByDiet()
-            5 -> listRecipesUnderTime()
-            6 -> updateRecipe()
-            7 -> deleteRecipe()
-            8 -> searchByName()
+            2 -> runSubmenu()
+            3 -> updateRecipe()
+            4 -> deleteRecipe()
+            5 -> searchByName()
             20 -> saveRecipes()
             21 -> loadRecipes()
             0 -> exitApp()
+            else -> println("Invalid option entered: $option")
+        }
+    } while (true)
+}
+
+fun runSubmenu() {
+    do {
+        when (val option = subMenu()) {
+            1 -> listAllRecipes()
+            2 -> listRecipesByMealType()
+            3 -> listRecipesByDiet()
+            4 -> listRecipesUnderTime()
+            0 -> runMenu()
             else -> println("Invalid option entered: $option")
         }
     } while (true)
@@ -41,20 +51,36 @@ fun mainMenu(): Int {
         """ 
          > ------------------------------------
          > |        RECIPE KEEPER APP         |
+         > |            MAIN MENU             |
          > ------------------------------------
          > | MAIN MENU                        |
          > |   1) Add a recipe                |
-         > |   2) List all recipes            |
-         > |   3) List all recipes for meal   |
-         > |   4) List all recipes with diet  |
-         > |   5) List all recipes under time |
-         > |   6) Update a recipe             |
-         > |   7) Delete a recipe             |
-         > |   8) Find a recipe by name       |
+         > |   2) List recipes submenu        |
+         > |   3) Update a recipe             |
+         > |   4) Delete a recipe             |
+         > |   5) Find a recipe by name       |
          > |   20) Save recipes               |
          > |   21) Load recipes               |
          > ------------------------------------
          > |   0) Exit                        |
+         > ------------------------------------
+         > ==>> """.trimMargin(">")
+    )
+}
+
+fun subMenu(): Int {
+    return readNextInt(
+        """
+         > ------------------------------------
+         > |        RECIPE KEEPER APP         |
+         > |          LIST SUBMENU            |
+         > ------------------------------------
+         > |   1) List all recipes            |
+         > |   2) List all recipes for meal   |
+         > |   3) List all recipes with diet  |
+         > |   4) List all recipes under time |
+         > ------------------------------------
+         > |   0) Return to main menu         |
          > ------------------------------------
          > ==>> """.trimMargin(">")
     )
